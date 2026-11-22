@@ -1,0 +1,216 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\\uAC1C\uBC1C\\2048-Enhanced\\2048_Enhanced_Client\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\multy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\system.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\init.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\connect.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\connect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\init.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\multy.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E76B1C10-D368-4B14-8B7A-0C3057F82ED5}|2048_Enhanced_Client\\2048_Enhanced_Client.vcxproj|D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\system.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "common.h",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\common.h",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\common.h",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\common.h",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\common.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-11-22T18:13:52.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "game.h",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\game.h",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\game.h",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\game.h",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\game.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-11-22T18:13:47.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "init.h",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\init.h",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\init.h",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\init.h",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\init.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwMAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-11-22T18:13:44.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "multy.h",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\multy.h",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\multy.h",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\multy.h",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\multy.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-11-22T18:09:54.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "connect.h",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\connect.h",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\connect.h",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\connect.h",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\connect.h",
+              "ViewState": "AgIAACIAAAAAAAAAAADwvzgAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-11-22T18:10:09.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "system.h",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\system.h",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\system.h",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\system.h",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\system.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-11-22T18:09:54.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "system.c",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\system.c",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\system.c",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\system.c",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\system.c",
+              "ViewState": "AgIAADoAAAAAAAAAAADwv0oAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-11-22T18:06:12.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "multy.c",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\multy.c",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\multy.c",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\multy.c",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\multy.c",
+              "ViewState": "AgIAACIEAAAAAAAAAADwvywEAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-11-22T18:05:55.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "game.c",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\game.c",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\game.c",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\game.c",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\game.c",
+              "ViewState": "AgIAAKABAAAAAAAAAADwv6UBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-11-22T18:05:28.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "connect.c",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\connect.c",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\connect.c",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\connect.c",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\connect.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-11-22T18:05:11.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main.c",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\main.c",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\main.c",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\main.c",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\main.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-11-22T18:02:32.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "init.c",
+              "DocumentMoniker": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\init.c",
+              "RelativeDocumentMoniker": "..\\..\\temp\\2048 Enhanced\\init.c",
+              "ToolTip": "D:\\\uAC1C\uBC1C\\temp\\2048 Enhanced\\init.c",
+              "RelativeToolTip": "..\\..\\temp\\2048 Enhanced\\init.c",
+              "ViewState": "AgIAACQAAAAAAAAAAAAhwDAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2026-11-22T18:02:31.398Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
