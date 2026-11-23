@@ -1,4 +1,8 @@
-﻿#include <stdio.h>
+﻿#include <winsock2.h>
+#include <windows.h>
+#include <bcrypt.h>
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
@@ -6,6 +10,8 @@
 
 #include "room.h"
 #include "game.h"
+
+#pragma comment(lib, "Bcrypt.lib")
 
 #define MAX_ROOMS 128
 
@@ -188,21 +194,37 @@ static int codeExists(const char* code)
     return 0;
 }
 
-static void generateRoomCode(char* code)
+static int generateRoomCode(char* code)
 {
-    unsigned int value;
+    ULONG value;
 
-    do {
-        value = (unsigned int)(rand() % 100000);
+    const ULONG limit = 4294900000UL;
+
+    for (;;) {
+        if (BCryptGenRandom(
+            NULL,
+            (PUCHAR)&value,
+            sizeof(value),
+            BCRYPT_USE_SYSTEM_PREFERRED_RNG) != 0) {
+
+            return 0;
+        }
+
+        if (value >= limit) {
+            continue;
+        }
 
         snprintf(
             code,
             6,
             "%05u",
-            value
+            (unsigned int)(value % 100000UL)
         );
 
-    } while (codeExists(code));
+        if (!codeExists(code)) {
+            return 1;
+        }
+    }
 }
 
 static void setClientName(
@@ -779,7 +801,20 @@ static void handleCreateRoom(
         &room->frequency
     );
 
-    generateRoomCode(room->code);
+    if (!generateRoomCode(room->code)) {
+        memset(
+            room,
+            0,
+            sizeof(*room)
+        );
+
+        sendError(
+            client,
+            "방 코드 생성에 실패했습니다."
+        );
+
+        return;
+    }
 
     room->active = 1;
 
@@ -1114,10 +1149,6 @@ void RoomInit(void)
     InitializeCriticalSection(&roomLock);
 
     roomLockReady = 1;
-
-    srand(
-        (unsigned int)time(NULL)
-    );
 }
 
 void RoomHandleMessage(

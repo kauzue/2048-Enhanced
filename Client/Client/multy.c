@@ -1079,6 +1079,12 @@ void startMultiplayer(void)
 
     readPlayerName(name, sizeof(name));
 
+    ConnectSend(
+        MSG_SET_NAME,
+        (const uint8_t*)name,
+        (uint32_t)strlen(name)
+    );
+
     setConsoleCursorVisible(0);
 
     while (!exitRequested) {

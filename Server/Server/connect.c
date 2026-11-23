@@ -282,6 +282,36 @@ static IN_ADDR GetDefaultMyIP(void)
     return address;
 }
 
+static void setClientName(
+    Client* client,
+    const uint8_t* data,
+    uint32_t length)
+{
+    uint32_t count = length;
+
+    if (count > MAX_PLAYER_NAME) {
+        count = MAX_PLAYER_NAME;
+    }
+
+    if (count > 0 && data != NULL) {
+        memcpy(
+            client->name,
+            data,
+            count
+        );
+    }
+
+    client->name[count] = '\0';
+
+    if (client->name[0] == '\0') {
+        memcpy(
+            client->name,
+            "PLAYER",
+            sizeof("PLAYER")
+        );
+    }
+}
+
 static DWORD WINAPI clientThread(LPVOID parameter)
 {
     Client* client = (Client*)parameter;
@@ -290,6 +320,8 @@ static DWORD WINAPI clientThread(LPVOID parameter)
     uint8_t data[MAX_PACKET_SIZE];
 
     uint32_t length;
+
+    int namePrinted = 0;
 
     while (ReceivePacket(
         client->socket,
@@ -301,12 +333,42 @@ static DWORD WINAPI clientThread(LPVOID parameter)
             break;
         }
 
+        if (type == MSG_SET_NAME) {
+            setClientName(
+                client,
+                data,
+                length
+            );
+
+            if (!namePrinted) {
+                printf(
+                    "%s가 서버에 연결되었습니다.\n",
+                    client->name
+                );
+
+                namePrinted = 1;
+            }
+
+            continue;
+        }
+
         RoomHandleMessage(
             client,
             type,
             data,
             length
         );
+
+        if (!namePrinted &&
+            client->roomIndex >= 0) {
+
+            printf(
+                "%s님이 서버에 연결되었습니다.\n",
+                client->name
+            );
+
+            namePrinted = 1;
+        }
     }
 
     RoomDisconnect(client);
@@ -316,8 +378,8 @@ static DWORD WINAPI clientThread(LPVOID parameter)
     closesocket(client->socket);
 
     printf(
-        "%s의 연결이 끊어졌습니다.\n",
-        client->ip
+        "%s님의 연결이 끊어졌습니다.\n",
+        client->name
     );
 
     DeleteCriticalSection(&client->sendLock);
@@ -498,11 +560,6 @@ void serverRun(void)
 
             continue;
         }
-
-        printf(
-            "%s가 서버에 연결되었습니다.\n",
-            client->ip
-        );
 
         CloseHandle(thread);
     }

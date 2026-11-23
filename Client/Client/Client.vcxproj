@@ -125,18 +125,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="connect.c" />
-    <ClCompile Include="game.c" />
     <ClCompile Include="init.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="multy.c" />
+    <ClCompile Include="single.c" />
     <ClCompile Include="system.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="connect.h" />
-    <ClInclude Include="game.h" />
     <ClInclude Include="init.h" />
     <ClInclude Include="multy.h" />
+    <ClInclude Include="single.h" />
     <ClInclude Include="system.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

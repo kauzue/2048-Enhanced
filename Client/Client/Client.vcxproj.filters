@@ -27,18 +27,15 @@
     <ClCompile Include="system.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="game.c">
+    <ClCompile Include="connect.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="connect.c">
+    <ClCompile Include="single.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="init.h">
@@ -51,6 +48,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="system.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="single.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

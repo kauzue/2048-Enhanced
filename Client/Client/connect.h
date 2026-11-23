@@ -30,7 +30,8 @@ enum {
     MSG_DISCONNECT,
     MSG_ERROR,
     MSG_ROOM_STATE,
-    MSG_GAME_START
+    MSG_GAME_START,
+    MSG_SET_NAME
 };
 
 enum {
