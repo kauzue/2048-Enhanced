@@ -4,9 +4,10 @@
 #include <winsock2.h>
 #include <windows.h>
 
-#define SERVER_PORT 27015
 #define MAX_PACKET_SIZE 4096
 #define MAX_PLAYER_NAME 16
+
+extern int SERVER_PORT;
 
 enum {
     MSG_CREATE_ROOM = 1,

@@ -44,7 +44,7 @@ static uint8_t getTarget(void)
 
 static uint64_t getTileValue(uint8_t exponent)
 {
-    if (exponent >= 63) {
+    if (exponent >= 64) {
         return UINT64_MAX;
     }
 
@@ -91,6 +91,10 @@ static void getColors(
         bluered,
         whiteblack
     };
+
+    if (scheme > 3) {
+        scheme = 0;
+    }
 
     *foreground =
         *(schemes[scheme] + (1 + value * 2) % sizeof(original));
@@ -211,22 +215,23 @@ static uint8_t findTarget(
     uint8_t stop
 )
 {
-    uint8_t t;
+    int t;
 
     if (x == 0) {
         return x;
     }
 
-    for (t = x - 1;; t--) {
+    for (t = (int)x - 1; t >= (int)stop; t--) {
         if (array[t] != 0) {
             if (array[t] != array[x]) {
-                return t + 1;
+                return (uint8_t)(t + 1);
             }
 
-            return t;
+            return (uint8_t)t;
         }
-        else if (t == stop) {
-            return t;
+
+        if (t == (int)stop) {
+            return (uint8_t)t;
         }
     }
 
@@ -237,6 +242,7 @@ static bool slideArray(uint8_t array[SIZE])
 {
     bool success = false;
     uint8_t x, t, stop = 0;
+    uint64_t tileScore;
 
     for (x = 0; x < SIZE; x++) {
         if (array[x] != 0) {
@@ -252,14 +258,13 @@ static bool slideArray(uint8_t array[SIZE])
                     ) {
                     array[t]++;
 
-                    if (
-                        UINT64_MAX - score <
-                        getTileValue(array[t])
-                        ) {
+                    tileScore = getTileValue(array[t]);
+
+                    if (UINT64_MAX - score < tileScore) {
                         score = UINT64_MAX;
                     }
                     else {
-                        score += getTileValue(array[t]);
+                        score += tileScore;
                     }
 
                     stop = t + 1;
@@ -482,13 +487,16 @@ static bool hasTargetTile(void)
     return false;
 }
 
-static void showSaveUnavailable(void)
+static void showSaveResult(bool success)
 {
     system("cls");
 
-    printWideText(
-        L"저장 기능은 아직 준비 중입니다.\n\n"
-    );
+    if (success) {
+        printWideText(L"현재 모드의 게임을 저장했습니다.\n\n");
+    }
+    else {
+        printWideText(L"저장에 실패했습니다.\n\n");
+    }
 
     printWideText(
         L"아무 키나 누르면 게임으로 돌아갑니다."
@@ -497,13 +505,8 @@ static void showSaveUnavailable(void)
     readKey();
 }
 
-static void finishGame(bool won)
+static void showGameResult(bool won)
 {
-update:
-    printf("\033[2J\033[H");
-
-    drawBoard();
-
     printf("\n");
 
     if (won) {
@@ -520,39 +523,37 @@ update:
     readKey();
 }
 
-void startSingleGame(int mode)
+static void runSingleGame(void)
 {
     int key;
     int action;
+
     bool success;
     bool won = false;
     bool ended = false;
     bool backToMenu = false;
 
-    if (
-        mode < SINGLE_MODE_2048 ||
-        mode > SINGLE_MODE_INFINITE
-        ) {
-        return;
-    }
-
-    currentMode = mode;
-    score = 0;
-
-    initBoard();
-
     printf("\033[?25l\033[2J\033[H");
 
     drawBoard();
+
+    if (hasTargetTile()) {
+        won = true;
+    }
+    else if (gameEnded()) {
+        ended = true;
+    }
 
     while (!won && !ended) {
         key = readKey();
 
         if (key == 27) {
-            action = pauseMenu();
+            action = pauseMenu(currentMode);
 
             if (action == PAUSE_SAVE) {
-                showSaveUnavailable();
+                showSaveResult(
+                    saveGame(currentMode, score, board)
+                );
 
                 printf("\033[2J\033[H");
                 drawBoard();
@@ -636,8 +637,57 @@ void startSingleGame(int mode)
     }
 
     if (!backToMenu) {
-        finishGame(won);
+        showGameResult(won);
     }
 
     printf("\033[?25h\033[m");
+}
+
+void startSingleGame(int mode)
+{
+    if (
+        mode < SINGLE_MODE_2048 ||
+        mode > SINGLE_MODE_INFINITE
+        ) {
+        return;
+    }
+
+    currentMode = mode;
+    score = 0;
+
+    initBoard();
+
+    runSingleGame();
+}
+
+bool loadSingleGame(int mode)
+{
+    uint64_t loadedScore;
+    uint8_t loadedBoard[SIZE][SIZE];
+
+    int x, y;
+
+    if (
+        mode < SINGLE_MODE_2048 ||
+        mode > SINGLE_MODE_INFINITE
+        ) {
+        return false;
+    }
+
+    if (!loadGame(mode, &loadedScore, loadedBoard)) {
+        return false;
+    }
+
+    currentMode = mode;
+    score = loadedScore;
+
+    for (x = 0; x < SIZE; x++) {
+        for (y = 0; y < SIZE; y++) {
+            board[x][y] = loadedBoard[x][y];
+        }
+    }
+
+    runSingleGame();
+
+    return true;
 }

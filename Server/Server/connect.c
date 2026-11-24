@@ -14,6 +14,8 @@
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Iphlpapi.lib")
 
+int SERVER_PORT = 0;
+
 static int sendAll(
     SOCKET socket,
     const char* data,
@@ -401,8 +403,9 @@ void serverRun(void)
 
     char serverIPText[16];
 
-    int reuse = 1;
+    int exclusive = 1;
     int result;
+    int addressLength;
 
     if (WSAStartup(MAKEWORD(2, 2), &data) != 0) {
         return;
@@ -421,19 +424,25 @@ void serverRun(void)
         return;
     }
 
-    setsockopt(
+    result = setsockopt(
         listenSocket,
         SOL_SOCKET,
-        SO_REUSEADDR,
-        (const char*)&reuse,
-        sizeof(reuse)
+        SO_EXCLUSIVEADDRUSE,
+        (const char*)&exclusive,
+        sizeof(exclusive)
     );
+
+    if (result == SOCKET_ERROR) {
+        closesocket(listenSocket);
+        WSACleanup();
+        return;
+    }
 
     memset(&address, 0, sizeof(address));
 
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = htonl(INADDR_ANY);
-    address.sin_port = htons(SERVER_PORT);
+    address.sin_port = htons(0);
 
     result = bind(
         listenSocket,
@@ -447,12 +456,29 @@ void serverRun(void)
         return;
     }
 
+    addressLength = sizeof(address);
+
+    result = getsockname(
+        listenSocket,
+        (struct sockaddr*)&address,
+        &addressLength
+    );
+
+    if (result == SOCKET_ERROR) {
+        closesocket(listenSocket);
+        WSACleanup();
+        return;
+    }
+
+    SERVER_PORT = (int)ntohs(address.sin_port);
+
     result = listen(
         listenSocket,
         SOMAXCONN
     );
 
     if (result == SOCKET_ERROR) {
+        SERVER_PORT = 0;
         closesocket(listenSocket);
         WSACleanup();
         return;
@@ -476,7 +502,7 @@ void serverRun(void)
     }
 
     printf(
-        "%s:%d에서 서버 실행중\n",
+        "%s:%05d에서 서버 실행중\n",
         serverIPText,
         SERVER_PORT
     );

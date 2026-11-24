@@ -3,9 +3,12 @@
 #include <stdint.h>
 #include <winsock2.h>
 
-#define SERVER_IP "127.0.0.1"
-#define SERVER_PORT 27015
+//#define SERVER_IP "127.0.0.1"
+//#define SERVER_PORT 27015
 #define MAX_PACKET_SIZE 4096
+
+char SERVER_IP[256];
+int SERVER_PORT;
 
 enum {
     MSG_CREATE_ROOM = 1,

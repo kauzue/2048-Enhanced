@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36203.30 d17.14
+VisualStudioVersion = 17.14.36203.30
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{E30725A4-C90E-4C0D-A8C6-04654BCA1563}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "2048 Enhanced", "2048 Enhanced\2048 Enhanced.vdproj", "{EDC63CCD-623C-DD29-0FCA-E25855CB7D13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E30725A4-C90E-4C0D-A8C6-04654BCA1563}.Release|x64.Build.0 = Release|x64
 		{E30725A4-C90E-4C0D-A8C6-04654BCA1563}.Release|x86.ActiveCfg = Release|Win32
 		{E30725A4-C90E-4C0D-A8C6-04654BCA1563}.Release|x86.Build.0 = Release|Win32
+		{EDC63CCD-623C-DD29-0FCA-E25855CB7D13}.Debug|x64.ActiveCfg = Debug
+		{EDC63CCD-623C-DD29-0FCA-E25855CB7D13}.Debug|x86.ActiveCfg = Debug
+		{EDC63CCD-623C-DD29-0FCA-E25855CB7D13}.Release|x64.ActiveCfg = Release
+		{EDC63CCD-623C-DD29-0FCA-E25855CB7D13}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

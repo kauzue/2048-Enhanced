@@ -7,6 +7,7 @@
 #include <windows.h>
 
 #include "connect.h"
+#include "system.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -54,6 +55,24 @@ static int receiveAll(SOCKET socket, char* data, int length)
 
 int ConnectServer(void)
 {
+    int x, y;
+    getConsoleSize(&x, &y);
+    x = (x - 13) / 2 + 2;
+    y = (y - 9) / 2 + 4;
+
+    printf("\x1b[2K");
+    MoveCursor(x, y);
+    printf("IP 주소 (IPv4 형식): ");
+    scanf_s("%s", SERVER_IP, sizeof(SERVER_IP));
+    MoveCursor(x, y);
+    printf("\x1b[2K");
+    MoveCursor(x, y);
+    printf("포트 번호 (5자리): ");
+    scanf_s("%d", &SERVER_PORT);
+    MoveCursor(x, y);
+    printf("\x1b[2K");
+    MoveCursor(x, y);
+
     WSADATA data;
     struct sockaddr_in address;
 

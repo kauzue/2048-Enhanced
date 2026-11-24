@@ -866,11 +866,12 @@ static int readConsoleKey(void)
 static void readPlayerName(char* name, size_t size)
 {
     printf(
-        " 플레이어 이름 (최대 %d자): ",
+        "플레이어 이름 (최대 %d자): ",
         NAME_LENGTH
     );
 
-    if (fgets(name, (int)size, stdin) == NULL) {
+    scanf_s("%s", name, sizeof(name));
+    if (name == NULL) {
         writeText(name, size, "PLAYER");
         return;
     }

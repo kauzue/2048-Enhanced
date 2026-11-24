@@ -8,21 +8,7 @@
 #include "system.h"
 #include "multy.h"
 
-static void getConsoleSize(int* width, int* height)
-{
-    CONSOLE_SCREEN_BUFFER_INFO info;
-    HANDLE consolehandle = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    *width = 80;
-    *height = 25;
-
-    if (GetConsoleScreenBufferInfo(consolehandle, &info)) {
-        *width = info.srWindow.Right - info.srWindow.Left + 1;
-        *height = info.srWindow.Bottom - info.srWindow.Top + 1;
-    }
-}
-
-static void showNotImplemented(const wchar_t* message)
+static void showMessage(const wchar_t* message)
 {
     system("cls");
 
@@ -30,6 +16,126 @@ static void showNotImplemented(const wchar_t* message)
     printWideText(L"\n\n아무 키나 누르면 돌아갑니다.");
 
     readKey();
+}
+
+static void printLoadMenu(void)
+{
+    const wchar_t* menuItems[] = {
+        L"2048 모드 불러오기",
+        L"4096 모드 불러오기",
+        L"무한 모드 불러오기",
+        L"뒤로 가기"
+    };
+
+    const int loadModes[] = {
+        SINGLE_MODE_2048,
+        SINGLE_MODE_4096,
+        SINGLE_MODE_INFINITE
+    };
+
+    int width, height;
+    int x, y;
+    int titleX;
+    int key;
+    int selected = 0;
+    int i;
+
+    while (1) {
+        system("cls");
+
+        getConsoleSize(&width, &height);
+
+        x = (width - 28) / 2 + 2;
+        titleX = (width - 9) / 2;
+        y = (height - 9) / 2;
+
+        if (x < 2) {
+            x = 2;
+        }
+
+        if (titleX < 0) {
+            titleX = 0;
+        }
+
+        if (y < 0) {
+            y = 0;
+        }
+
+        MoveCursor(titleX, y);
+        printWideText(L"불러오기");
+
+        for (i = 0; i < 4; i++) {
+            MoveCursor(x, y + 2 + i * 2);
+            printWideText(menuItems[i]);
+        }
+
+        MoveCursor(x - 2, y + 2 + selected * 2);
+        printf(">");
+
+        fflush(stdout);
+
+        while (1) {
+            key = ControlKey();
+
+            if (key == ENTER) {
+                break;
+            }
+
+            switch (key) {
+            case UP:
+                if (selected > 0) {
+                    MoveCursor(
+                        x - 2,
+                        y + 2 + selected * 2
+                    );
+
+                    printf(" ");
+
+                    selected--;
+
+                    MoveCursor(
+                        x - 2,
+                        y + 2 + selected * 2
+                    );
+
+                    printf(">");
+                }
+                break;
+
+            case DOWN:
+                if (selected < 3) {
+                    MoveCursor(
+                        x - 2,
+                        y + 2 + selected * 2
+                    );
+
+                    printf(" ");
+
+                    selected++;
+
+                    MoveCursor(
+                        x - 2,
+                        y + 2 + selected * 2
+                    );
+
+                    printf(">");
+                }
+                break;
+            }
+
+            fflush(stdout);
+        }
+
+        if (selected == 3) {
+            return;
+        }
+
+        if (!loadSingleGame(loadModes[selected])) {
+            showMessage(
+                L"해당 모드의 저장 파일이 없거나 불러올 수 없습니다."
+            );
+        }
+    }
 }
 
 static void printSingleMenu(void)
@@ -150,13 +256,11 @@ static void printSingleMenu(void)
             break;
 
         case 3:
-            showNotImplemented(
-                L"불러오기 기능은 아직 준비 중입니다."
-            );
+            printLoadMenu();
             break;
 
         case 4:
-            showNotImplemented(
+            showMessage(
                 L"최고 기록 기능은 아직 준비 중입니다."
             );
             break;
@@ -297,7 +401,7 @@ void printMainMenu(void)
             break;
 
         case 2:
-            showNotImplemented(
+            showMessage(
                 L"설정 메뉴는 아직 준비 중입니다."
             );
             break;

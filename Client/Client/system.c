@@ -1,10 +1,20 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <windows.h>
 #include <conio.h>
 #include <wchar.h>
 
 #include "system.h"
+
+#define SAVE_VERSION 1
+
+#define SAVE_HEADER \
+    "version,mode,score," \
+    "b00,b01,b02,b03," \
+    "b10,b11,b12,b13," \
+    "b20,b21,b22,b23," \
+    "b30,b31,b32,b33"
 
 void MoveCursor(int x, int y)
 {
@@ -67,7 +77,41 @@ int ControlKey(void)
     }
 }
 
-static void getConsoleSize(int* width, int* height)
+static const char* getSaveFileName(int mode)
+{
+    switch (mode) {
+    case 0:
+        return "save_2048.csv";
+
+    case 1:
+        return "save_4096.csv";
+
+    case 2:
+        return "save_infinite.csv";
+
+    default:
+        return NULL;
+    }
+}
+
+static const wchar_t* getModeName(int mode)
+{
+    switch (mode) {
+    case 0:
+        return L"2048";
+
+    case 1:
+        return L"4096";
+
+    case 2:
+        return L"무한";
+
+    default:
+        return L"알 수 없음";
+    }
+}
+
+void getConsoleSize(int* width, int* height)
 {
     CONSOLE_SCREEN_BUFFER_INFO info;
     HANDLE consolehandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -96,7 +140,41 @@ static void showPauseSettings(void)
     readKey();
 }
 
-int pauseMenu(void)
+static bool confirmSave(int mode)
+{
+    int key;
+    const char* fileName = getSaveFileName(mode);
+
+    system("cls");
+
+    printWideText(L"저장 확인\n\n");
+
+    printWideText(L"");
+
+    printWideText(getModeName(mode));
+    printWideText(L" 모드의 저장 파일을 덮어쓸 수 있습니다.\n\n");
+
+    printWideText(
+        L"저장하시겠습니까? (Y/N)"
+    );
+
+    while (1) {
+        key = readKey();
+
+        switch (key) {
+        case 'y':
+        case 'Y':
+            return true;
+
+        case 'n':
+        case 'N':
+        case 27:
+            return false;
+        }
+    }
+}
+
+int pauseMenu(int mode)
 {
     const wchar_t* menuItems[] = {
         L"계속하기",
@@ -204,7 +282,10 @@ int pauseMenu(void)
             return PAUSE_CONTINUE;
 
         case 1:
-            return PAUSE_SAVE;
+            if (confirmSave(mode)) {
+                return PAUSE_SAVE;
+            }
+            break;
 
         case 2:
             showPauseSettings();
@@ -217,6 +298,184 @@ int pauseMenu(void)
             return PAUSE_RETURN_TO_SINGLE_MENU;
         }
     }
+}
+
+bool saveGame(
+    int mode,
+    uint64_t score,
+    uint8_t board[SIZE][SIZE]
+)
+{
+    FILE* file = NULL;
+    const char* fileName;
+    int x, y;
+    bool success = true;
+
+    fileName = getSaveFileName(mode);
+
+    if (fileName == NULL) {
+        return false;
+    }
+
+    for (x = 0; x < SIZE; x++) {
+        for (y = 0; y < SIZE; y++) {
+            if (board[x][y] > 63) {
+                return false;
+            }
+        }
+    }
+
+    if (fopen_s(&file, fileName, "w") != 0 || file == NULL) {
+        return false;
+    }
+
+    if (fprintf(file, SAVE_HEADER "\n") < 0) {
+        success = false;
+    }
+
+    if (
+        success &&
+        fprintf(
+            file,
+            "%d,%d,%llu",
+            SAVE_VERSION,
+            mode,
+            (unsigned long long)score
+        ) < 0
+        ) {
+        success = false;
+    }
+
+    for (x = 0; x < SIZE && success; x++) {
+        for (y = 0; y < SIZE; y++) {
+            if (fprintf(file, ",%u", board[x][y]) < 0) {
+                success = false;
+                break;
+            }
+        }
+    }
+
+    if (success && fprintf(file, "\n") < 0) {
+        success = false;
+    }
+
+    if (fclose(file) != 0) {
+        success = false;
+    }
+
+    return success;
+}
+
+bool loadGame(
+    int mode,
+    uint64_t* score,
+    uint8_t board[SIZE][SIZE]
+)
+{
+    FILE* file = NULL;
+    const char* fileName;
+
+    char header[256];
+    char line[512];
+
+    unsigned int version;
+    unsigned int loadedMode;
+    unsigned int tiles[SIZE][SIZE];
+
+    unsigned long long loadedScore;
+
+    int fields;
+    int x, y;
+
+    fileName = getSaveFileName(mode);
+
+    if (
+        fileName == NULL ||
+        score == NULL ||
+        board == NULL
+        ) {
+        return false;
+    }
+
+    if (fopen_s(&file, fileName, "r") != 0 || file == NULL) {
+        return false;
+    }
+
+    if (fgets(header, sizeof(header), file) == NULL) {
+        fclose(file);
+        return false;
+    }
+
+    header[strcspn(header, "\r\n")] = '\0';
+
+    if (strcmp(header, SAVE_HEADER) != 0) {
+        fclose(file);
+        return false;
+    }
+
+    if (fgets(line, sizeof(line), file) == NULL) {
+        fclose(file);
+        return false;
+    }
+
+    fields = sscanf_s(
+        line,
+        "%u,%u,%llu,"
+        "%u,%u,%u,%u,"
+        "%u,%u,%u,%u,"
+        "%u,%u,%u,%u,"
+        "%u,%u,%u,%u",
+        &version,
+        &loadedMode,
+        &loadedScore,
+        &tiles[0][0],
+        &tiles[0][1],
+        &tiles[0][2],
+        &tiles[0][3],
+        &tiles[1][0],
+        &tiles[1][1],
+        &tiles[1][2],
+        &tiles[1][3],
+        &tiles[2][0],
+        &tiles[2][1],
+        &tiles[2][2],
+        &tiles[2][3],
+        &tiles[3][0],
+        &tiles[3][1],
+        &tiles[3][2],
+        &tiles[3][3]
+    );
+
+    fclose(file);
+
+    if (fields != 19) {
+        return false;
+    }
+
+    if (
+        version != SAVE_VERSION ||
+        loadedMode != (unsigned int)mode
+        ) {
+        return false;
+    }
+
+    for (x = 0; x < SIZE; x++) {
+        for (y = 0; y < SIZE; y++) {
+            if (tiles[x][y] > 63) {
+                return false;
+            }
+        }
+    }
+
+    *score = (uint64_t)loadedScore;
+
+    for (x = 0; x < SIZE; x++) {
+        for (y = 0; y < SIZE; y++) {
+            board[x][y] = (uint8_t)tiles[x][y];
+        }
+    }
+
+    return true;
 }
 
 void waitAfterMove(void)
